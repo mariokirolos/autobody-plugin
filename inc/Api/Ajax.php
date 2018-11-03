@@ -11,57 +11,84 @@
 namespace Inc\Api;
 
 use Inc\Base\BaseController;
-use Inc\Base\Database;
 
 
 class Ajax extends BaseController{
-    public $database;
     public function register(){
-        $this->database = new Database();
 
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-        add_action( 'wp_ajax_addWord', array( $this, 'addWord' ) ); 
-        add_action( 'wp_ajax_nopriv_addWord', array( $this, 'addWord' ) );
-        add_action( 'wp_ajax_SearchWord', array( $this, 'SearchWord' ) ); 
-        add_action( 'wp_ajax_nopriv_SearchWord', array( $this, 'SearchWord' ) );
+        //Add Words Ajax
+        add_action( 'wp_ajax_AddWord', array( $this, 'AddWord' ) ); 
+        add_action( 'wp_ajax_nopriv_AddWord', array( $this, 'AddWord' ) );
+        //Search words ajax
+        add_action('wp_ajax_SearchWord' , array($this , 'searchWord'));
+        add_action('wp_ajax_nopriv_SearchWord' , array($this , 'searchWord'));
     }
 
 
-    public function addWord(){
-        check_ajax_referer( 'addWord_nonce', 'nonce' );
-        if( true )
-            wp_send_json_success( 'Ajax here!' );
-        else
-            wp_send_json_error( array( 'error' => $custom_error ) );
+    public function AddWord(){
+        
+        if(! DOING_AJAX )
+            return false;
+
+
+        if(!check_ajax_referer( 'search_autobody', 'nonce' ))
+            return false;        
+
+       
+
+        $word = sanitize_text_field($_POST['term']);
+
+
+        $insert = $this->wpdb->insert( $this->base_table_name , array(
+            'name' => $word,
+            'ip_address' => $_SERVER['REMOTE_ADDR'] ,
+        ));
+
+
+        if($insert){
+            $return = array(
+                'message'       => 'The word <i>' . $word . '</i> is successfully added' , 
+                'classesAdded'  => 'alert alert-success'
+            );
+        }else{
+            $return = array(
+                'message'       => 'We can not process your request at the moment, please try again later!' , 
+                'classesAdded'  => 'alert alert-danger'
+            );
+        }
+
+        
+        echo json_encode($return);
+
+        wp_die();
+
+
+
     }
 
     public function SearchWord(){
+        
+        if(! DOING_AJAX )
+            return false;
 
-        check_ajax_referer( 'SearchWord_nonce', 'nonce' );
-        if( true )
-            wp_send_json_success( 'Ajax here!' );
-        else
-            wp_send_json_error( array( 'error' => $custom_error ) );
+        if(!check_ajax_referer( 'search_autobody', 'nonce' ))
+            return false;        
 
-        check_ajax_referer( 'check_nonce', 'nonce' );
-        if( true )
-            wp_send_json_success( 'Ajax here!' );
-        else
-            wp_send_json_error( array( 'error' => $custom_error ) );
+        $array = array();
+
+        $word = sanitize_text_field($_POST['term']);
+
+        $words = $this->wpdb->get_results('SELECT * FROM '. $this->base_table_name .' WHERE `name` LIKE "' . $word .'%"'  );
 
 
-    //     if(!isset($_GET['term']))
-    //         return;
-    // $term=$_GET["term"];
+        foreach($words as $one){
+            $array[]=$one->name ;
+        }
 
-    // $fruits = $this->wpdb->get_results('SELECT * FROM '. $this->base_table_name .' WHERE `name` LIKE "' . $term .'%"'  );
+        echo json_encode($array);
 
-    //     foreach($fruits as $fruit){
-    //         $json[]=array( 'value'=> $fruit->name );
-    //     }
-
-    // echo json_encode($json);
-    // die();
+        wp_die();
     }
 
 

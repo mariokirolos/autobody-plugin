@@ -1,3 +1,8 @@
 #searchForm{
-	margin-top:30%;
+	margin-top:20%;
+}
+
+#searchForm div.input-group  , #searchForm #message{
+	width:30%;
+	margin:0 auto;
 }
