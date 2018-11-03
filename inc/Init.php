@@ -25,6 +25,7 @@ class Init{
 			Api\Ajax::class,
 			Base\Database::class,
 			Functions\searchAPI::class,
+			Functions\TemplateController::class,
 		);
 	}
 
