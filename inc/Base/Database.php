@@ -43,7 +43,7 @@ class Database extends BaseController{
 
 
 	public function getList($orderBy =  'date_created'){
-		$sql = "SELECT `id`,`name`,`date_created` FROM $this->base_table_name ORDER BY $orderBy DESC";
+		$sql = "SELECT `id`,`name`,`date_created` ,`ip_address` FROM $this->base_table_name ORDER BY $orderBy DESC";
 
 		return $this->wpdb->get_results($sql);
 	}
