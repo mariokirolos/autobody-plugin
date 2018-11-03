@@ -39,7 +39,6 @@ use \Inc\Api\Callbacks\AdminCallbacksManager;
  		$this->setFields();
 
 		$this->settings->addPages($this->admin_pages)->withSubpage('Dashboard')->register();
-		//->addSubPages($this->admin_subPages)
  	}
 
 
@@ -52,41 +51,11 @@ use \Inc\Api\Callbacks\AdminCallbacksManager;
  				'capability' 	=> 'manage_options' , 
  				'menu_slug' 	=> 'Autobody', 
  				'call_back'		=> array($this->AdminCallbacks , 'adminDashboard') ,  
- 				'icon_url'		=> $this->plugin_url .  'assets/images/AutobodyIcon.png' , 
+ 				'menu-icon'		=> 'dashicons-cart' , 
  				'position'		=> 110 
  			]
  		];
  	}
-
-
- 	// function adminSubPages(){
- 	// 	$this->admin_subPages = [
- 	// 		[
- 	// 			'parent_slug'	=> 'Autobody',
- 	// 			'page_title' 	=> 'CPT manager', 
- 	// 			'menu_title' 	=> 'CPT', 
- 	// 			'capability' 	=> 'manage_options' , 
- 	// 			'menu_slug' 	=> 'Autobody_cpt', 
- 	// 			'call_back'		=> array($this->AdminCallbacks , 'cptDashboard') ,  
- 	// 		],[
- 	// 			'parent_slug'	=> 'Autobody',
- 	// 			'page_title' 	=> 'Tax manager', 
- 	// 			'menu_title' 	=> 'TAX', 
- 	// 			'capability' 	=> 'manage_options' , 
- 	// 			'menu_slug' 	=> 'Autobody_tax', 
- 	// 			'call_back'		=> array($this->AdminCallbacks , 'taxDashboard') ,  
- 	// 		],[
- 	// 			'parent_slug'	=> 'Autobody',
- 	// 			'page_title' 	=> 'Custom Widgets', 
- 	// 			'menu_title' 	=> 'Custom Widgets', 
- 	// 			'capability' 	=> 'manage_options' , 
- 	// 			'menu_slug' 	=> 'Autobody_widgets', 
- 	// 			'call_back'		=> array($this->AdminCallbacks , 'widgetsDashboard') ,  
- 	// 		],
- 	// 	];
-
- 	// }
-
 
 	function admin_index(){
 		require_once( $this->plugin_path  . 'templates/admin.php');
