@@ -1,0 +1,17 @@
+{
+    "name": "mariokirolos/autobody-plugin",
+    "description": "This is the plugin that will include all of the required features for the web application",
+    "type": "project",
+    "license": "GNL",
+    "authors": [
+        {
+            "name": "Autobody",
+            "email": "contact@mariofayek.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload":{
+        "psr-4":{"Inc\\": "./inc"}
+    }
+}
