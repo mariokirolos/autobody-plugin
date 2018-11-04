@@ -18,17 +18,12 @@ use Inc\Base\BaseController;
  		return require_once("$this->plugin_path/templates/admin.php");
  	}
  
- 	public function cptDashboard(){
- 		return require_once("$this->plugin_path/templates/cpt.php");	
+ 	public function searchDashboard(){
+ 		return require_once("$this->plugin_path/templates/search.php");	
  	}
- 
 
- 	public function taxDashboard(){
- 		return require_once("$this->plugin_path/templates/tax.php");	
- 	}
- 	
- 	public function widgetsDashboard(){
- 		return require_once("$this->plugin_path/templates/widgets.php");	
+ 	public function OCRDashboard(){
+ 		return require_once("$this->plugin_path/templates/ocr.php");	
  	}
 
  	public function AutobodyOptionsGroup($input){

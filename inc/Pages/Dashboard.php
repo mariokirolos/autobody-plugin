@@ -10,8 +10,9 @@
 
 namespace Inc\Pages;
 
-use \Inc\Base\BaseController;
+
 use \Inc\Api\SettingsApi;
+use \Inc\Base\BaseController;
 use \Inc\Api\Callbacks\AdminCallbacks;
 use \Inc\Api\Callbacks\AdminCallbacksManager;
 
@@ -23,16 +24,16 @@ use \Inc\Api\Callbacks\AdminCallbacksManager;
  	 public $AdminCallbacks;
  	 public $Callbacks_mngr;
  	 public $admin_pages = array();
- 	 //public $admin_subPages = array();
+ 	 public $admin_subPages = array();
+
 
  	public function register(){
  		$this->settings = new settingsApi();
  		$this->AdminCallbacks = new AdminCallbacks();
  		$this->Callbacks_mngr = new AdminCallbacksManager();
 
+
  		$this->adminPages();
- 		//$this->adminSubPages();
- 		
 
  		$this->setSettings();
  		$this->setSections();
@@ -46,12 +47,12 @@ use \Inc\Api\Callbacks\AdminCallbacksManager;
  	function adminPages(){
 		$this->admin_pages = [
  			[
- 				'page_title' 	=> 'Autobody Search', 
- 				'menu_title' 	=> 'Autobody Search', 
+ 				'page_title' 	=> 'Autobody', 
+ 				'menu_title' 	=> 'Autobody', 
  				'capability' 	=> 'manage_options' , 
  				'menu_slug' 	=> 'Autobody', 
  				'call_back'		=> array($this->AdminCallbacks , 'adminDashboard') ,  
- 				'menu-icon'		=> 'dashicons-cart' , 
+ 				'icon_url'		=> 'dashicons-cart' , 
  				'position'		=> 110 
  			]
  		];
@@ -60,7 +61,6 @@ use \Inc\Api\Callbacks\AdminCallbacksManager;
 	function admin_index(){
 		require_once( $this->plugin_path  . 'templates/admin.php');
 	}
-
 
 	function SetSettings(){
 		$args = array();
@@ -72,6 +72,7 @@ use \Inc\Api\Callbacks\AdminCallbacksManager;
 				'callback'		=> array($this->Callbacks_mngr , $manager['type'])
 			);
 		}
+
 		$this->settings->setSettings($args);
 	}
 
@@ -85,6 +86,7 @@ use \Inc\Api\Callbacks\AdminCallbacksManager;
 				'page'			=> 'Autobody'
 			)
 		);
+
 		$this->settings->setSections($args);
 	}
 	
@@ -93,20 +95,25 @@ use \Inc\Api\Callbacks\AdminCallbacksManager;
 		$args = array();
 
 		foreach($this->managers as $manager){
+
+
 			$args[] = array(
 				'id'			=> $manager['name'] , //Same as Option Name
 				'title'			=> $manager['title'],
-				'callback'		=> array($this->Callbacks_mngr , $manager['fieldType']),
 				'page'			=> 'Autobody' , 
 				'section'		=> 'Autobody_Admin_section' , 	//Same as Section ID
 				'args'			=> array(
 									'label_for'		=>		$manager['name'] , 
 									'class'			=>		$manager['class'],
-									'placeholder'	=>		'Place your API here',
-									'option_name'	=>		$manager['option_name']
-				)
+									'placeholder'	=>		$manager['placeholder'],
+									'option_name'	=>		$manager['option_name'],
+									'desc'			=>		$manager['desc']
+				),
+				'callback'		=> array($this->Callbacks_mngr , $manager['fieldType']),
+				
 			);
 		}
+		
 		$this->settings->setFields($args);
 	}
 

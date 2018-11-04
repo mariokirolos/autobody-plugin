@@ -24,7 +24,8 @@ class Init{
 			Base\SettingsLinks::class,
 			Api\Ajax::class,
 			Base\Database::class,
-			Functions\searchAPI::class,
+			Pages\Search::class,
+			Pages\OCR::class,
 			Functions\TemplateController::class,
 		);
 	}

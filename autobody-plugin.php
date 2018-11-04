@@ -8,7 +8,7 @@
  */
 /**
  *
- *	Plugin Name: Autobody Search Plugin
+ *	Plugin Name: Autobody Plugin
  *	Version: 1.0
  *	Description: This plugin will hold the main features that is required to run the custom functionalities requested to Autobody
  *	Author: Autobody

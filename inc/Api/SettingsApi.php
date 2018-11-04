@@ -43,15 +43,19 @@ namespace Inc\Api;
  		}
 
  		$admin_page = $this->admin_pages[0];
+ 		$title = (empty($title)) ?   $admin_page['page_title'] :  $title ;
  		$subpage = [
  			[
  				'parent_slug'	=> $admin_page['menu_slug'],
- 				'page_title' 	=> $admin_page['page_title'],
- 				'menu_title' 	=> $admin_page['menu_title'],
+ 				'page_title' 	=> $title ,
+ 				'menu_title' 	=> $title ,
  				'capability' 	=> $admin_page['capability'],
  				'menu_slug' 	=> $admin_page['menu_slug'],
  				'call_back'		=> $admin_page['call_back'],  
  			]
+
+
+
  		];
 
 
@@ -63,6 +67,7 @@ namespace Inc\Api;
 
  	public function addSubPages(array $pages){
  		$this->admin_subpages = array_merge( $this->admin_subpages , $pages ) ;
+
 
  		return $this;
  	}

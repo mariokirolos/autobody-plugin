@@ -22,8 +22,11 @@ use \Inc\Base\BaseController;
 
 
  	function adminEnqueue(){
+		wp_enqueue_media();
+
 		wp_enqueue_style('AutobodyStyles' , $this->plugin_url . 'assets/css/main.css' );
 		wp_enqueue_script('AutobodyJs' , $this->plugin_url . 'assets/js/admin.js' , __FILE__ );
+
 	}
 
 	function frontendEnqueue(){

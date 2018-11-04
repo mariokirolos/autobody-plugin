@@ -28,7 +28,19 @@ class Database extends BaseController{
 		date_created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   		ip_address varchar(20) NOT NULL ,
 		PRIMARY KEY  (id)
-	) $charset_collate;";
+	) $charset_collate; ";
+
+	$sql .= "CREATE TABLE  IF NOT EXISTS  $this->base_OCR_table (
+		  id mediumint(3) NOT NULL AUTO_INCREMENT,
+		  file_id mediumint(3) NOT NULL,
+		  blog_id mediumint(3) NOT NULL,
+		  thumb_image_src varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+		  full_image_src varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+		  convertedText text COLLATE utf8mb4_unicode_ci NOT NULL , 
+		  date_created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  		  ip_address varchar(20) NOT NULL ,
+  		  PRIMARY KEY  (id)
+		)  $charset_collate; ";
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	dbDelta( $sql );
@@ -36,7 +48,8 @@ class Database extends BaseController{
 
 
 	public function removeTable(){
-     $sql = "DROP TABLE IF EXISTS $this->base_table_name";
+     $sql = "DROP TABLE IF EXISTS $this->base_table_name ;";
+     $sql .= "DROP TABLE IF EXISTS $this->base_OCR_table ;";
      $this->wpdb->query($sql);
      delete_option("my_plugin_db_version");
 	}
@@ -47,5 +60,12 @@ class Database extends BaseController{
 
 		return $this->wpdb->get_results($sql);
 	}
+
+	public function getOCRList($orderBy = 'date_created'){
+		$sql = "SELECT `id`,`thumb_image_src`,`full_image_src`,`convertedText`,`date_created` ,`ip_address` FROM $this->base_OCR_table ORDER BY $orderBy DESC";
+
+		return $this->wpdb->get_results($sql);
+	}
+
 
 }
