@@ -97,6 +97,9 @@ use \Inc\Api\Callbacks\AdminCallbacksManager;
 		foreach($this->managers as $manager){
 
 
+			$placeholder = (isset($manager['placeholder'])) ? $manager['placeholder'] : '';
+			$desc = (isset($manager['desc'])) ? $manager['desc'] : '';
+
 			$args[] = array(
 				'id'			=> $manager['name'] , //Same as Option Name
 				'title'			=> $manager['title'],
@@ -105,9 +108,9 @@ use \Inc\Api\Callbacks\AdminCallbacksManager;
 				'args'			=> array(
 									'label_for'		=>		$manager['name'] , 
 									'class'			=>		$manager['class'],
-									'placeholder'	=>		$manager['placeholder'],
+									'placeholder'	=>		$placeholder,
 									'option_name'	=>		$manager['option_name'],
-									'desc'			=>		$manager['desc']
+									'desc'			=>		$desc
 				),
 				'callback'		=> array($this->Callbacks_mngr , $manager['fieldType']),
 				
