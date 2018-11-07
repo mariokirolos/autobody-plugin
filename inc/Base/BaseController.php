@@ -38,7 +38,7 @@ namespace Inc\Base;
 
 		$this->managers = array(
 				array('option_name' => 'Autobody_group' , 'name' => 'autobody_search' , 'type'=>'handleInput' , 'fieldType' => 'CheckBoxField' , 'title' => 'Search' , 'class' => 'ui-toggle'),
-				array('option_name' => 'Autobody_group' , 'name' => 'autobody_ocr' , 'type'=>'handleInput' , 'fieldType' => 'CheckBoxField' , 'title' => 'OCR' , 'class' => 'ui-toggle','desc'=> 'In order to activate the OCR you will need to specify the API Key'),
+				array('option_name' => 'Autobody_group' , 'name' => 'autobody_ocr' , 'type'=>'handleInput' , 'fieldType' => 'CheckBoxField' , 'title' => 'OCR' , 'class' => 'ui-toggle','desc'=> 'The OCR will be active reading only unless you put a valid API key'),
 				array('option_name' => 'Autobody_group' , 'name' => 'autobody_ocr_api' , 'type'=>'handleInput' , 'fieldType' => 'TextField' , 'title' => 'OCR API Key' , 'class' => '','desc'=> 'Kindly put your API Key here for the OCR to work properly' , 'placeholder'=> 'Place your API here'),
 
 		);

@@ -24,6 +24,14 @@ class Search extends BaseController {
 
 	public function register(){
 
+		//Check if multisite is on and this feature is allowed
+		if(is_multisite()){
+			$multisiteOption = get_site_option('Autobody_Network_group');
+			if(!($multisiteOption['autobody_search'] == 1))
+				return;
+		}
+
+
 		$option = get_option('Autobody_group');
 
 		$activated = (isset($option['autobody_search'])) ? $option['autobody_search']  : false ;

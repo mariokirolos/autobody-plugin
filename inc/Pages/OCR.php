@@ -25,6 +25,15 @@ class OCR extends BaseController {
 
 	public function register(){
 
+		//Check if multisite is on and this feature is allowed
+		if(is_multisite()){
+			$multisiteOption = get_site_option('Autobody_Network_group');
+			if(!($multisiteOption['autobody_ocr'] == 1))
+				return;
+		}
+
+
+
 		$option = get_option('Autobody_group');
 
 		$activated = (isset($option['autobody_ocr'])) ? $option['autobody_ocr']  : false ;
@@ -110,24 +119,6 @@ class OCR extends BaseController {
 
 			$thumb = wp_get_attachment_image_src($file_id , 'thumbnail');
 			$org = wp_get_attachment_image_src($file_id , 'original');
-
-
-
-			// $q =  "INSERT INTO $this->base_OCR_table 
-   // (`file_id`,`blog_id`,`thumb_image_src`,`full_image_src`,`convertedText`,`ip_address`) 
-   // values ('$file_id', '$id', '$thumb[0]', '$org[0]', 
-   //       '$text', '". $_SERVER['REMOTE_ADDR']  ."')";
-
-
-   //       echo $q;
-
-   //       $this->wpdb->prepare($q);
-   //       $this->wpdb->query($sql);
-
-			// if(!$insert)
-			// 	die('Can not Insert!');
-
-
 
 			$this->wpdb->insert( $this->base_OCR_table, array(
 										'file_id' => $file_id , 

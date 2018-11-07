@@ -25,6 +25,7 @@ class Init{
 			Api\Ajax::class,
 			Base\Database::class,
 			Pages\Search::class,
+			Pages\Network::class,
 			Pages\OCR::class,
 			Functions\TemplateController::class,
 		);

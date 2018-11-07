@@ -95,6 +95,19 @@ use \Inc\Api\Callbacks\AdminCallbacksManager;
 		$args = array();
 
 		foreach($this->managers as $manager){
+			$disabled = 'disabled';
+			//Check if Multisite to disable the option if required;
+			if(is_multisite()){
+				$multisiteOption = get_site_option('Autobody_Network_group');
+				
+				if($multisiteOption[$manager['name']] != 0 )
+					$disabled = '';
+
+
+
+			}
+
+
 
 
 			$placeholder = (isset($manager['placeholder'])) ? $manager['placeholder'] : '';
@@ -110,7 +123,8 @@ use \Inc\Api\Callbacks\AdminCallbacksManager;
 									'class'			=>		$manager['class'],
 									'placeholder'	=>		$placeholder,
 									'option_name'	=>		$manager['option_name'],
-									'desc'			=>		$desc
+									'desc'			=>		$desc , 
+									'disabled'		=>		$disabled
 				),
 				'callback'		=> array($this->Callbacks_mngr , $manager['fieldType']),
 				
